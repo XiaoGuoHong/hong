@@ -1,0 +1,42 @@
+---
+import { type CollectionEntry, getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { formatDate, isoDate } from '../../lib/format';
+import { pageUrl } from '../../lib/paths';
+
+type Props = {
+  post: CollectionEntry<'blog'>;
+};
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { id: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<Base
+  title={post.data.title}
+  description={post.data.description}
+  ogType="article"
+  published={post.data.date}
+>
+  <article class="page">
+    <p class="back"><a href={pageUrl('blog')}>← 全部笔记</a></p>
+    <p class="kicker">
+      <time datetime={isoDate(post.data.date)}>{formatDate(post.data.date)}</time>
+      {post.data.example && <span class="flag">示例</span>}
+    </p>
+    <h1>{post.data.title}</h1>
+    <p class="lede">{post.data.description}</p>
+    {post.data.example && <p class="notice">示例文章，不是正式内容。</p>}
+    <div class="prose">
+      <Content />
+    </div>
+  </article>
+</Base>

@@ -1,0 +1,52 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { pageUrl } from '../lib/paths';
+import { site } from '../lib/site';
+
+const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+
+const description =
+  '我是 Hong，人在广州，在广州西麦科技做开发，主要写 Python 和 Go。这里放个人项目，以及一件可以公开说明的公司工作。';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Hong',
+  alternateName: 'XiaoGuoHong',
+  homeLocation: { '@type': 'Place', name: '广州' },
+  worksFor: { '@type': 'Organization', name: '广州西麦科技' },
+  sameAs: [site.github],
+};
+---
+
+<Base title={site.name} description={description} jsonLd={jsonLd}>
+  <section class="hero">
+    <p class="kicker"><span>广州</span><span lang="en">Python / Go</span></p>
+    <h1 lang="en">Hong</h1>
+    <p class="lede">
+      我是 Hong，人在广州，在广州西麦科技做开发，主要写 Python 和 Go。
+    </p>
+    <p class="lede">
+      工作上，我负责电力高空作业安全审核里的 Dify 工作流，以及<span class="nowrap">通义千问（Qwen）</span>多模态模型的提示词优化和评测。业余时间做自己的项目，关心
+      <span class="nowrap">AI Agent</span> 的工程架构，比如长会话里的上下文怎么管理，以及不靠框架把 agent 搭起来。本地桌面工具也是我常做的一类东西。
+    </p>
+    <p class="more"><a href={pageUrl('about')}>更多关于我</a></p>
+  </section>
+
+  <section aria-labelledby="projects-heading">
+    <div class="section-head">
+      <h2 id="projects-heading">项目</h2>
+    </div>
+    <ul class="wall">
+      {
+        projects.map((project) => (
+          <li class:list={{ 'is-wide': project.data.kind === 'company' }}>
+            <ProjectCard project={project} />
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</Base>

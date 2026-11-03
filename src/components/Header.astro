@@ -1,0 +1,43 @@
+---
+import { normalizedPath, pageUrl } from '../lib/paths';
+import { site } from '../lib/site';
+
+const path = normalizedPath(Astro.url.pathname);
+
+const items = [
+  {
+    href: pageUrl(),
+    label: '首页',
+    current: path === '/' || path.startsWith('/projects'),
+  },
+  {
+    href: pageUrl('about'),
+    label: '关于',
+    current: path === '/about',
+  },
+  {
+    href: pageUrl('blog'),
+    label: '笔记',
+    current: path === '/blog' || path.startsWith('/blog/'),
+  },
+];
+---
+
+<header class="site-header">
+  <div class="bar">
+    <a class="wordmark" href={pageUrl()} lang="en">{site.name}</a>
+    <nav aria-label="站内">
+      <ul class="nav">
+        {
+          items.map((item) => (
+            <li>
+              <a href={item.href} aria-current={item.current ? 'page' : undefined}>
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</header>

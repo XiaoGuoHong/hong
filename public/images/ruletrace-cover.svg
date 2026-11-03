@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="840" viewBox="0 0 1200 840">
+  <title>RuleTrace</title>
+  <rect width="1200" height="840" fill="#161513"/>
+  <rect x="48" y="48" width="1104" height="744" fill="none" stroke="#3a3833" stroke-width="1.5"/>
+  <text x="96" y="330" fill="#a39e93" font-size="28" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Noto Sans CJK SC, Source Han Sans SC, WenQuanYi Micro Hei, sans-serif">合规性查询助手</text>
+  <text x="96" y="455" fill="#f4f1ea" font-size="92" font-family="Liberation Serif, Times New Roman, Palatino, serif">RuleTrace</text>
+  <rect x="96" y="496" width="72" height="3" fill="#c48478"/>
+  <text x="96" y="575" fill="#a39e93" font-size="26" font-family="PingFang SC, Hiragino Sans GB, Microsoft YaHei, Noto Sans CJK SC, Source Han Sans SC, WenQuanYi Micro Hei, sans-serif">提问，转发到自己的 Dify 工作流</text>
+</svg>

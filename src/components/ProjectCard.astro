@@ -1,0 +1,39 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { publicUrl, pageUrl } from '../lib/paths';
+import { kindLabel } from '../lib/site';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+
+const { project } = Astro.props;
+const { title, label, summary, kind, stack, image, imageAlt, imageWidth, imageHeight } =
+  project.data;
+---
+
+<a class="card" data-kind={kind} href={pageUrl(`projects/${project.id}`)}>
+  {
+    image && imageAlt && imageWidth && imageHeight && (
+      <div class="card-media">
+        <img
+          src={publicUrl(image)}
+          alt={imageAlt}
+          width={imageWidth}
+          height={imageHeight}
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+    )
+  }
+  <div class="card-body">
+    <p class="kicker">{kindLabel(kind)}</p>
+    <h3>{title}</h3>
+    {label && <p class="label">{label}</p>}
+    <p class="summary">{summary}</p>
+    <ul class="stack">
+      {stack.map((item) => <li>{item}</li>)}
+    </ul>
+  </div>
+</a>

@@ -1,0 +1,87 @@
+---
+import { type CollectionEntry, getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { pageUrl, publicUrl } from '../../lib/paths';
+import { kindLabel } from '../../lib/site';
+
+type Props = {
+  project: CollectionEntry<'projects'>;
+};
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((project) => ({
+    params: { id: project.id },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+const {
+  title,
+  label,
+  summary,
+  kind,
+  stack,
+  github,
+  demo,
+  repoPrivate,
+  image,
+  imageAlt,
+  imageWidth,
+  imageHeight,
+  imageCaption,
+} = project.data;
+---
+
+<Base title={title} description={summary} ogType="article">
+  <article class="page">
+    <p class="back"><a href={pageUrl()}>← 全部项目</a></p>
+    <p class="kicker">{kindLabel(kind)}</p>
+    <h1>{title}</h1>
+    {label && <p class="label">{label}</p>}
+    <p class="lede">{summary}</p>
+    <ul class="stack">
+      {stack.map((item) => <li>{item}</li>)}
+    </ul>
+    {
+      (github || demo) && (
+        <p class="actions">
+          {github && (
+            <a href={github} rel="noopener noreferrer">
+              {repoPrivate ? 'GitHub 仓库（暂未公开）' : 'GitHub 仓库'}
+            </a>
+          )}
+          {demo && (
+            <a href={demo} rel="noopener noreferrer">
+              在线演示
+            </a>
+          )}
+        </p>
+      )
+    }
+    {
+      kind === 'company' && (
+        <p class="notice">公司项目。此页只有文字说明，不提供仓库、截图或内部数据。</p>
+      )
+    }
+    {
+      image && imageAlt && imageWidth && imageHeight && (
+        <figure class="shot">
+          <img
+            src={publicUrl(image)}
+            alt={imageAlt}
+            width={imageWidth}
+            height={imageHeight}
+            decoding="async"
+          />
+          {imageCaption && <figcaption>{imageCaption}</figcaption>}
+        </figure>
+      )
+    }
+    <div class="prose">
+      <Content />
+    </div>
+  </article>
+</Base>
