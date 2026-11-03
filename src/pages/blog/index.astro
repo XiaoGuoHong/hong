@@ -1,0 +1,37 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { formatDate, isoDate } from '../../lib/format';
+import { pageUrl } from '../../lib/paths';
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+
+const description = 'Hong 的笔记。现在有一篇示例，用来说明之后怎么加文章。';
+---
+
+<Base title="笔记" description={description}>
+  <article class="page">
+    <h1>笔记</h1>
+    <p class="lede">偶尔记一下做法。下面如果标了「示例」，就不是正式内容。</p>
+    {
+      posts.length === 0 ? (
+        <p class="lede">还没有笔记。</p>
+      ) : (
+        <ul class="post-list">
+          {posts.map((post) => (
+            <li>
+              <time datetime={isoDate(post.data.date)}>{formatDate(post.data.date)}</time>
+              <h2>
+                <a href={pageUrl(`blog/${post.id}`)}>{post.data.title}</a>
+                {post.data.example && <span class="flag">示例</span>}
+              </h2>
+              <p>{post.data.description}</p>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </article>
+</Base>

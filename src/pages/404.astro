@@ -1,0 +1,12 @@
+---
+import Base from '../layouts/Base.astro';
+import { pageUrl } from '../lib/paths';
+---
+
+<Base title="找不到页面" description="这个地址没有对应的页面。">
+  <article class="page">
+    <h1>找不到这一页</h1>
+    <p class="lede">地址可能写错了，或者页面已经挪走。</p>
+    <p class="more"><a href={pageUrl()}>回到首页</a></p>
+  </article>
+</Base>

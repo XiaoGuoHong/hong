@@ -1,0 +1,36 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../lib/site';
+
+const description =
+  '关于 Hong：人在广州，在广州西麦科技工作，主要用 Python 和 Go，关心 AI Agent 的工程架构和本地桌面工具。';
+---
+
+<Base title="关于" description={description}>
+  <article class="page">
+    <h1>关于</h1>
+    <div class="prose">
+      <p>
+        我是 Hong，GitHub 上的名字是 XiaoGuoHong。人在广州，在广州西麦科技工作。平时主要用 Python 和
+        Go 写程序。
+      </p>
+      <h2>工作</h2>
+      <p>
+        目前做的是电力高空作业安全审核。要识别的情况有两类：安全带没有挂钩，以及低挂高用（挂钩点过低，人在使用时高于挂钩点）。系统侧是两条证据链，YOLO
+        负责检测，Dify 工作流里用通义千问多模态模型做复核。我负责的是 Dify
+        工作流，还有 VLM 提示词的优化和评测打分。
+      </p>
+      <h2>业余</h2>
+      <p>
+        工作之外会做自己的项目。感兴趣的是 AI Agent
+        的工程架构，例如一次很长的会话里，上下文要怎么管理；以及怎样不依赖现成框架，自己把 agent
+        搭起来。另一类是本地桌面工具，数据留在自己的机器上，默认可以离线运行。
+      </p>
+      <h2>这个网站</h2>
+      <p>用来放项目说明。个人项目会给出仓库；公司项目只写可以公开的文字，不放内部资料。</p>
+      <p>
+        GitHub：<a href={site.github} rel="me noopener noreferrer">github.com/XiaoGuoHong</a>
+      </p>
+    </div>
+  </article>
+</Base>
