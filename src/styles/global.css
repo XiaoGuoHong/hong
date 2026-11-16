@@ -7,11 +7,8 @@
   --line: #e3ded4;
   --accent: #8f3e33;
   --code-bg: #efece4;
-  --font-sans: "PingFang SC", "Hiragino Sans GB", "Noto Sans SC", "Noto Sans CJK SC",
-    "Source Han Sans SC", "Microsoft YaHei", "WenQuanYi Micro Hei", "Segoe UI", sans-serif;
-  --font-serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Liberation Serif",
-    "Times New Roman", "Songti SC", "Noto Serif SC", "Noto Serif CJK SC", "Source Han Serif SC",
-    serif;
+  --font-sans: SimSun, "宋体", "Songti SC", "Noto Serif CJK SC", serif;
+  --font-serif: SimSun, "宋体", "Songti SC", "Noto Serif CJK SC", serif;
   --font-mono: "Sarasa Mono SC", "Noto Sans Mono CJK SC", "Source Han Mono SC", ui-monospace,
     SFMono-Regular, Menlo, Consolas, monospace;
   color-scheme: light;
@@ -52,6 +49,27 @@ body {
   line-height: 1.75;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+nav,
+button,
+input,
+textarea,
+select {
+  font-family: var(--font-sans);
+}
+
+code,
+kbd,
+samp,
+pre {
+  font-family: var(--font-mono);
 }
 
 @media (min-width: 900px) {
@@ -157,6 +175,7 @@ main {
   list-style: none;
   margin: 0;
   padding: 0;
+  font-family: var(--font-sans);
 }
 
 .nav a {

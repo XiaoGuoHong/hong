@@ -2,14 +2,14 @@
 import { type CollectionEntry, getCollection, render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import { pageUrl, publicUrl } from '../../lib/paths';
-import { kindLabel } from '../../lib/site';
+import { isPublicProject, kindLabel } from '../../lib/site';
 
 type Props = {
   project: CollectionEntry<'projects'>;
 };
 
 export async function getStaticPaths() {
-  const projects = await getCollection('projects');
+  const projects = (await getCollection('projects')).filter((project) => isPublicProject(project.data));
   return projects.map((project) => ({
     params: { id: project.id },
     props: { project },
