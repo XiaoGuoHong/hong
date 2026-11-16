@@ -4,7 +4,7 @@
 
 首页是一段自我介绍和项目卡片；每个项目有自己的详情页。关于页写得稍长一些。笔记栏目用内容集合，目前只有一篇标明「示例」的占位文章。
 
-页面上没有邮箱、电话或其他社交账号。可以出现的外部链接只有 GitHub：<https://github.com/XiaoGuoHong>，以及各个人项目自己的仓库。
+页面上没有邮箱、电话或其他社交账号。外部链接只指向已经公开的 GitHub：<https://github.com/XiaoGuoHong>，以及同样已经公开的个人仓库。
 
 ## 本地开发
 
@@ -51,27 +51,27 @@ Node 版本请在 Pages 项目里设为 22。如果该环境自带的 Node 22 �
 
 ## 加一个项目
 
-在 `src/content/projects/` 新建一个 Markdown 文件。文件名会变成路径：`pma.md` → `/projects/pma`。
+在 `src/content/projects/` 新建一个 Markdown 文件。文件名会变成路径：`example.md` → `/projects/example`。
+
+只放已经公开的个人作品。不要写入雇主、公司项目、内部资料，或其他不宜公开的个人信息。`kind: company` 或 `repoPrivate: true` 的条目不会生成页面，也不会出现在首页。
 
 | 字段 | 说明 |
 | --- | --- |
 | `title` | 标题 |
 | `summary` | 卡片和详情页顶部的短介绍 |
 | `order` | 数字，小的排在前面 |
-| `kind` | `personal` 或 `company` |
+| `kind` | 公开作品写 `personal` |
 | `stack` | 技术栈，字符串数组 |
 | `label` | 可选，副标题 |
-| `github` | 可选，仓库 URL |
+| `github` | 可选，已公开仓库的 URL |
 | `demo` | 可选，演示 URL |
-| `repoPrivate` | 可选。仓库还没公开时写 `true`，链接文字会注明 |
-| `image` | 可选。文件放在 `public/`，路径写成 `/images/shot.png` |
+| `repoPrivate` | 可选。未公开的仓库写 `true`，这样的条目不会出现在站点上 |
+| `image` | 可选。文件放在 `public/`，路径写成 `/images/shot.png`。不要放不宜公开的截图 |
 | `imageAlt` | 有图片时必填 |
 | `imageWidth` / `imageHeight` | 有图片时必填，单位像素 |
 | `imageCaption` | 可选，图注 |
 
 正文用 Markdown，显示在详情页截图下面。
-
-`kind: company` 的条目不能填 `github`、`demo`、`image`（内容集合的 schema 会拒绝）。公司项目保持纯文字，不放仓库、截图或内部数据。
 
 ## 加一篇笔记
 
@@ -95,7 +95,7 @@ src/styles/global.css   样式
 public/                 图标、图片，以及 Cloudflare 的 _headers
 ```
 
-颜色跟随系统的 `prefers-color-scheme`，没有单独的切换开关。中文用系统字体，不额外下载字库。
+颜色跟随系统的 `prefers-color-scheme`，没有单独的切换开关。默认字体是宋体优先的系统字体栈：`SimSun`、`宋体`、`Songti SC`、`Noto Serif CJK SC`、`serif`。正文、标题、导航和表单都用这套；代码仍用等宽字体。不额外下载字库。
 
 ## 以后可能接上的东西
 
@@ -103,4 +103,4 @@ public/                 图标、图片，以及 Cloudflare 的 _headers
 
 - **Cloudflare Workers + D1 / KV**：需要登录或要存数据的小接口，可以用 Workers。D1 放关系数据，KV 放配置或缓存。静态站继续放在 Pages 上。
 - **Go 后端**：独立的 Go 服务可以放到 Render 或 Fly.io，和这个静态站分开部署。
-- **模型演示**：AI 或 YOLO 的可交互演示适合放在 Hugging Face Spaces，站点上以后只加链接，不把模型塞进 Pages 构建。
+- **模型演示**：可交互演示适合放在独立的演示环境，站点上以后只加链接，不把模型塞进 Pages 构建。
